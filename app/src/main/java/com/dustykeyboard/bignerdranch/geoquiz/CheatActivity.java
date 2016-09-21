@@ -1,11 +1,15 @@
 package com.dustykeyboard.bignerdranch.geoquiz;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewAnimationUtils;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -46,6 +50,23 @@ public class CheatActivity extends AppCompatActivity {
                 else
                     mAnswerTextView.setText(R.string.false_button);
                 setAnswerShownResult(true);
+
+                if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    int cx = mShowAnswer.getWidth() / 2;
+                    int cy = mShowAnswer.getHeight() / 2;
+                    float radius = mShowAnswer.getWidth();
+                    Animator anim = ViewAnimationUtils.createCircularReveal(mShowAnswer, cx, cy, radius, 0);
+                    anim.addListener(new AnimatorListenerAdapter() {
+                        @Override
+                        public void onAnimationEnd(Animator animation) {
+                            super.onAnimationEnd(animation);
+                            mShowAnswer.setVisibility(View.INVISIBLE);
+                        }
+                    });
+                    anim.start();
+                } else {
+                    mShowAnswer.setVisibility(View.INVISIBLE);
+                }
             }
         });
     }
@@ -73,5 +94,31 @@ public class CheatActivity extends AppCompatActivity {
 
     public static boolean wasAnswerShown(Intent result) {
         return result.getBooleanExtra(EXTRA_ANSWER_SHOWN, false);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        Log.d(TAG, "onStart() called");
+    }
+    @Override
+    public void onPause() {
+        super.onPause();
+        Log.d(TAG, "onPause() called");
+    }
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.d(TAG, "onResume() called");
+    }
+    @Override
+    public void onStop() {
+        super.onStop();
+        Log.d(TAG, "onStop() called");
+    }
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.d(TAG, "onDestory() called");
     }
 }
