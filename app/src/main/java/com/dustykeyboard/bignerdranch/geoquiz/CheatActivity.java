@@ -13,6 +13,8 @@ import android.view.ViewAnimationUtils;
 import android.widget.Button;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
 public class CheatActivity extends AppCompatActivity {
     private static final String EXTRA_ANSWER_IS_TRUE = "com.dustykeyboard.bignerdranch.geoquiz.answer_is_true";
     private static final String EXTRA_ANSWER_SHOWN = "com.dustykeyboard.bignerdranch.geoquiz.answer_shown";
@@ -23,6 +25,7 @@ public class CheatActivity extends AppCompatActivity {
     private boolean mAnswerIsTrue;
     private boolean mCheatStatus = false;
     private TextView mAnswerTextView;
+    private TextView mAPITextView;
     private Button mShowAnswer;
 
     @Override
@@ -32,12 +35,17 @@ public class CheatActivity extends AppCompatActivity {
 
         mAnswerIsTrue = getIntent().getBooleanExtra(EXTRA_ANSWER_IS_TRUE, false);
         mAnswerTextView = (TextView) findViewById(R.id.answer_text_view);
+        mAPITextView =  (TextView) findViewById(R.id.show_api_text_view);
 
+        //mAPITextView.setText(R.string.API_base_text);
+        mAPITextView.setText( getString(R.string.API_base_text) + " " + Integer.toString(Build.VERSION_CODES.LOLLIPOP));
+        //mAPITextView.setText(Integer.toString(Build.VERSION_CODES.LOLLIPOP));
         if( savedInstanceState != null) {
             mCheatStatus = savedInstanceState.getBoolean(KEY_CHEAT_STATUS, false);
             setAnswerShownResult(mCheatStatus);
             if(mCheatStatus) {
                 mAnswerTextView.setText(R.string.true_button);
+
             }
         }
 
