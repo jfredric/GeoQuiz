@@ -36,10 +36,8 @@ public class CheatActivity extends AppCompatActivity {
         mAnswerIsTrue = getIntent().getBooleanExtra(EXTRA_ANSWER_IS_TRUE, false);
         mAnswerTextView = (TextView) findViewById(R.id.answer_text_view);
         mAPITextView =  (TextView) findViewById(R.id.show_api_text_view);
+        mAPITextView.setText(String.format( getString(R.string.API_base_text), Integer.toString(Build.VERSION.SDK_INT)));
 
-        //mAPITextView.setText(R.string.API_base_text);
-        mAPITextView.setText( getString(R.string.API_base_text) + " " + Integer.toString(Build.VERSION_CODES.LOLLIPOP));
-        //mAPITextView.setText(Integer.toString(Build.VERSION_CODES.LOLLIPOP));
         if( savedInstanceState != null) {
             mCheatStatus = savedInstanceState.getBoolean(KEY_CHEAT_STATUS, false);
             setAnswerShownResult(mCheatStatus);

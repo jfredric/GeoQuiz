@@ -26,7 +26,7 @@
     <string name="warning_text">Are you sure you want to do this?</string>
 
     <!-- Other Strings -->
-    <string name="API_base_text">API level</string>
+    <string name="API_base_text">API level %1$s</string>
 
 
 </resources>
